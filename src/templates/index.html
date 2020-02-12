@@ -1,0 +1,14 @@
+{% set title = "Hi!" %}
+
+{% extends "layouts/_layout.html" %}
+{% block content %}
+
+    {% include "parts/_header.html" %}
+
+    <img src="img/index.png" alt="">
+    <div class="container">
+        Content here...
+    </div>
+
+    {% include "parts/_footer.html" %}
+{% endblock %}
