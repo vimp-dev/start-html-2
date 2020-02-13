@@ -11,7 +11,6 @@ var gulp          = require('gulp'),
 		autoprefixer  = require('gulp-autoprefixer'),
 		notify        = require("gulp-notify"),
 		webpack       = require('webpack-stream'),
-		MiniCssExtractPlugin = require('mini-css-extract-plugin'),
 		nunjucksRender = require('gulp-nunjucks-render'),
 		imagemin      = require('gulp-imagemin'),
 		gulpif        = require('gulp-if');

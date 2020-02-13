@@ -1,4 +1,4 @@
-{% set title = "Hi!" %}
+{% set title = "Hi! You get <a href='http://bit.ly/39wx6j6'> VIMP.SITE</a> template" %}
 
 {% extends "layouts/_layout.html" %}
 {% block content %}
@@ -7,6 +7,7 @@
 
     <img src="img/index.png" alt="">
     <div class="container">
+        <p>{{ title | safe}}</p>
         Content here...
     </div>
 
