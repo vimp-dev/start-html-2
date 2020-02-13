@@ -11,6 +11,7 @@ var gulp          = require('gulp'),
 		autoprefixer  = require('gulp-autoprefixer'),
 		notify        = require("gulp-notify"),
 		webpack       = require('webpack-stream'),
+		webp           = require('webpack'),
 		nunjucksRender = require('gulp-nunjucks-render'),
 		imagemin      = require('gulp-imagemin'),
 		gulpif        = require('gulp-if');
@@ -57,6 +58,13 @@ gulp.task('js', async function() {
 				}
 			]
 		},
+		plugins: [
+			new webp.ProvidePlugin({
+				$: 'jquery',
+				jQuery: 'jquery',
+				'window.jQuery': 'jquery',
+			}),
+		],
 		mode: modeDev  ? 'development' : 'production'
 	}))
 	.pipe(gulp.dest('./build/js'))

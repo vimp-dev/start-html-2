@@ -33,8 +33,10 @@
   },
   "dependencies": {
     "@fancyapps/fancybox": "^3.5.7",
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "animate.css": "^3.7.2",
     "bootstrap-4-grid": "^3.3.0",
+    "jquery": "^3.4.1",
     "normalize.css": "^8.0.1",
     "owl.carousel": "^2.3.4",
     "waypoints": "^4.0.1",
