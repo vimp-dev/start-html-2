@@ -1,1 +1,4 @@
 node_modules
+dist
+gulpfile-old.js
+package-old.json

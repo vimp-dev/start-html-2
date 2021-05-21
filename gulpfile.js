@@ -1,104 +1,153 @@
-var syntax        = 'sass'; // Syntax: sass or scss;
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const rename = require('gulp-rename');
+const autoprefixer = require('gulp-autoprefixer');
+const sync = require('browser-sync');
+const replace = require('gulp-replace');
+const posthtml = require('gulp-posthtml');
+const csso = require('gulp-csso');
+const babel = require('gulp-babel');
+const uglify = require('gulp-uglify');
+const webpack = require('webpack-stream');
+const webp = require('gulp-webp');
+var del = require('del');
 
-var gulp          = require('gulp'),
-		gutil         = require('gulp-util'),
-		sass          = require('gulp-sass'),
-		browserSync   = require('browser-sync'),
-		concat        = require('gulp-concat'),
-		uglify        = require('gulp-uglify'),
-		cleancss      = require('gulp-clean-css'),
-		rename        = require('gulp-rename'),
-		autoprefixer  = require('gulp-autoprefixer'),
-		notify        = require("gulp-notify"),
-		webpack       = require('webpack-stream'),
-		webp           = require('webpack'),
-		nunjucksRender = require('gulp-nunjucks-render'),
-		imagemin      = require('gulp-imagemin'),
-		gulpif        = require('gulp-if');
+//html
+const html = () => {
+    const config = (file) => ({
+        plugins: [ require('posthtml-include')({ root: file.dirname }) ],
+        options: {}
+    });
+    
+    return gulp.src('./src/pages/**/*.html')
+        .pipe(posthtml(config))
+        .pipe(gulp.dest('dist'))
+        .pipe(sync.stream());
+}
 
+exports.html = html;
 
-gulp.task('browser-sync', async function() {
-	browserSync({
-		server: {
-			baseDir: 'build'
-		},
-		notify: false,
-		// open: false,
-		// online: false, // Work Offline Without Internet Connection
-		// tunnel: true, tunnel: "projectname", // Demonstration page: http://projectname.localtunnel.me
-	});
-});
+// Styles
+const styles = () => {
+    return gulp.src('src/styles/**/*.scss')
+        .pipe(sass({ outputStyle: 'expand' }))
+        .pipe(rename({ suffix: '.min', prefix : '' }))
+        .pipe(autoprefixer({grid: true}))
+        .pipe(replace(/\.\.\//g, ''))
+        .pipe(csso())
+        .pipe(gulp.dest('dist/css'))
+        .pipe(sync.stream());
+};
 
-
-gulp.task('styles', async function() {
-	return gulp.src('src/'+syntax+'/**/*.'+syntax+'')
-	.pipe(sass({ outputStyle: 'expand' }).on("error", notify.onError()))
-	.pipe(rename({ suffix: '.min', prefix : '' }))
-	.pipe(autoprefixer(['last 15 versions']))
-	.pipe(cleancss( {level: { 1: { specialComments: 0 } } })) // Opt., comment out when debugging
-	.pipe(gulp.dest('build/css'))
-	.pipe(browserSync.stream());
-});
+exports.styles = styles;
 
 let modeDev = true;
-let modeProd = !modeDev;
+// Scripts
+const scripts = () => {
+    return gulp.src('src/js/index.js')
+        .pipe(webpack({
+            output: {
+                filename: 'index.js'
+            },
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        exclude: /node_modules/,
+                        loader: 'babel-loader',
+                    }
+                ]
+            },
+            mode: modeDev  ? 'development' : 'production'
+        }))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'))
+        .pipe(sync.stream());
+};
 
-gulp.task('js', async function() {
-	return gulp.src('./src/js/index.js')
-	.pipe(webpack({
-		output: {
-			filename: 'bundle.min.js'
-		},
-		module: {
-			rules: [
-				{
-					test: /\.js$/,
-					exclude: /node_modules/,
-					loader: 'babel-loader',
-				}
-			]
-		},
-		plugins: [
-			new webp.ProvidePlugin({
-				$: 'jquery',
-				jQuery: 'jquery',
-				'window.jQuery': 'jquery',
-			}),
-		],
-		mode: modeDev  ? 'development' : 'production'
-	}))
-	.pipe(gulp.dest('./build/js'))
-	.pipe(browserSync.reload({ stream: true }));
-});
+exports.scripts = scripts;
 
-gulp.task('html', async function(){
-	return gulp.src('./src/templates/*.html')
-	.pipe(nunjucksRender({
-		path: ['./src/templates'], // String or Array
-		envOptions: {
-			watch: false,
-			trimBlocks: true,
-			lstripBlocks: false
-		},
-	  }))
-	.pipe(gulp.dest('build/'))
-	.pipe(browserSync.reload({ stream: true }));
-})
+//images
+const images = () => {
+    return gulp.src('src/img/**/*.{jpg,jpeg,png}')
+        .pipe(webp({
+            quality: 80
+        }))
+        .pipe(gulp.dest('dist/img'))
+}
 
-gulp.task('image', async function(){
-	return gulp.src('./src/img/**/*')
-	.pipe(gulpif(modeProd, imagemin()))
-	.pipe(gulp.dest('build/img'))
-});
+exports.images = images;
 
-gulp.task('img', gulp.parallel('image'));
+//copy
+const copy = () => {
+    return gulp.src([
+            'src/fonts/**/*',
+            'src/img/**/*',
+        ], {
+            base: 'src'
+        })
+        .pipe(gulp.dest('dist'))
+        .pipe(sync.stream({
+            once: true
+        }));
+};
 
-gulp.task('watch', async function() {
-	gulp.watch('./src/'+syntax+'/**/*.'+syntax+'', gulp.parallel('styles'));
-	gulp.watch(['./src/js/**/*.js'], gulp.parallel('js'));
-	gulp.watch(['./src/img/**/*'], gulp.parallel('img'));
-	gulp.watch(['./src/templates/**/*.html'], gulp.parallel(['html', 'img'])).on('change', browserSync.reload);
-});
+exports.copy = copy;
 
-gulp.task('build', gulp.parallel('img', 'styles', 'js', 'html'));
-gulp.task('default', gulp.parallel('img', 'watch', 'html', 'styles', 'js', 'browser-sync'));
+// Server
+const server = () => {
+    sync.init({
+        ui: false,
+        notify: false,
+        server: {
+            baseDir: 'dist'
+        }
+    });
+};
+
+exports.server = server;
+
+//watch
+const watch = () => {
+    gulp.watch('src/**/*.html', gulp.series(html));
+    gulp.watch('src/styles/**/*.scss', gulp.series(styles));
+    gulp.watch('src/js/**/*.js', gulp.series(scripts));
+    gulp.watch([
+        'src/fonts/**/*',
+        'src/img/**/*',
+    ], gulp.series(copy, images));
+}
+
+exports.watch = watch;
+
+//clear
+const clear = () => {
+    return del(['dist/**', '!dist'], {force:true});
+}
+
+exports.clear = clear;
+
+// Default
+exports.default = gulp.series(
+    gulp.parallel(
+        html,
+        styles,
+        scripts,
+        copy,
+        images
+    ),
+    gulp.parallel(
+        watch,
+        server,
+    ),
+);
+
+//build
+exports.build = gulp.series(
+    clear,
+    html,
+    styles,
+    scripts,
+    copy,
+    images
+);
