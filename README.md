@@ -17,22 +17,10 @@
 
 ### Дополнительная информация
 
-Сборка включает в себя минификацию css, `autoprefixer`, сжатие избражений `imagemin`, шаблонизатор `nunjucks`, модульность в `js`, `core-js` для выборочного подключения `polyfill`.
-
-Поддерживается синтаксис `sass` и `scss`, `import` в JS.
-
-### Сторонние библиотеки
-
-`fancybox`
-
-`animate.css`
-
-`bootstrap-4-grid`
-
-`normalize.css`
-
-`owl.carousel`
-
-`waypoints`
-
-`wow.js`
+Сборка включает в себя:
+*минификацию css
+*препроцессор `sass` с ситнаксисом `scss`
+*`autoprefixer`
+*конвертер избражений в webp
+*подключение `html` частями
+*модульность в `js`.
