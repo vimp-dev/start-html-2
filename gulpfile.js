@@ -33,7 +33,7 @@ const styles = () => {
         .pipe(sass({ outputStyle: 'expand' }))
         .pipe(rename({ suffix: '.min', prefix : '' }))
         .pipe(autoprefixer({grid: true}))
-        .pipe(replace(/\.\.\//g, ''))
+        // .pipe(replace(/\.\.\//g, ''))
         .pipe(csso())
         .pipe(gulp.dest('dist/css'))
         .pipe(sync.stream());
