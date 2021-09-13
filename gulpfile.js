@@ -1,5 +1,5 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
 const sync = require('browser-sync');
@@ -18,7 +18,7 @@ const html = () => {
         plugins: [ require('posthtml-include')({ root: file.dirname }) ],
         options: {}
     });
-    
+
     return gulp.src('./src/pages/**/*.html')
         .pipe(posthtml(config))
         .pipe(gulp.dest('dist'))
@@ -30,7 +30,7 @@ exports.html = html;
 // Styles
 const styles = () => {
     return gulp.src('src/styles/**/*.scss')
-        .pipe(sass({ outputStyle: 'expand' }))
+        .pipe(sass())
         .pipe(rename({ suffix: '.min', prefix : '' }))
         .pipe(autoprefixer({grid: true}))
         // .pipe(replace(/\.\.\//g, ''))

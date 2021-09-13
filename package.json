@@ -3,8 +3,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-		"serve": "gulp",
-		"build": "gulp build",
+    "serve": "gulp",
+    "build": "gulp build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Timur Khudiyev",
@@ -26,6 +26,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^4.0.1",
     "posthtml-include": "^1.7.1",
+    "sass": "^1.39.2",
     "webpack": "^5.52.1",
     "webpack-stream": "^7.0.0"
   },
