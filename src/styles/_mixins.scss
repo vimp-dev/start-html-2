@@ -1,0 +1,22 @@
+// @use 'sass:math';
+
+@mixin media($w) {
+	@media (min-width: $w+'px') {
+		@content;
+	}
+}
+
+$xxs: 320;
+$xs: 479;
+$sm: 767;
+$md: 999;
+$lg: 1199;
+
+// @function strip-unit($value) {
+//   @return math.div($value, $value * 0 + 1);
+// }
+
+// @mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+//   font-size: calc(#{$min-font-size}px + #{($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}px) / #{strip-unit($max-vw - $min-vw)}));
+//   // font-size: calc(64px + (106 - 64) * ((100vw - 767px) / (1230 - 767)));
+// }
