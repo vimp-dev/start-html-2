@@ -9,10 +9,10 @@
   },
   "author": "Timur Khudiyev",
   "devDependencies": {
-    "@babel/core": "^7.17.5",
+    "@babel/core": "^7.17.8",
     "@babel/preset-env": "^7.16.11",
-    "babel-loader": "^8.2.3",
-    "browser-sync": "^2.27.7",
+    "babel-loader": "^8.2.4",
+    "browser-sync": "^2.27.9",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
