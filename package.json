@@ -42,5 +42,15 @@
     "ios >= 7",
     "android >= 4",
     "bb >= 10"
-  ]
+  ],
+  "dependencies": {
+    "@fancyapps/ui": "^4.0.26",
+    "@srexi/purecounterjs": "^1.5.0",
+    "aos": "^3.0.0-beta.6",
+    "badger-accordion": "^1.2.4",
+    "flatpickr": "^4.6.13",
+    "inputmask": "^5.0.7",
+    "rellax": "^1.12.1",
+    "swiper": "^8.1.4"
+  }
 }
