@@ -9,9 +9,9 @@
   },
   "author": "Timur Khudiyev",
   "devDependencies": {
-    "@babel/core": "^7.17.8",
-    "@babel/preset-env": "^7.16.11",
-    "babel-loader": "^8.2.4",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.9",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
@@ -25,9 +25,10 @@
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^4.0.1",
-    "posthtml-include": "^1.7.2",
-    "sass": "^1.49.9",
-    "webpack": "^5.70.0",
+    "gulp-x-includer": "^0.1.2",
+    "posthtml-include": "^1.7.3",
+    "sass": "^1.51.0",
+    "webpack": "^5.72.0",
     "webpack-stream": "^7.0.0"
   },
   "browserslist": [
@@ -50,6 +51,7 @@
     "badger-accordion": "^1.2.4",
     "flatpickr": "^4.6.13",
     "inputmask": "^5.0.7",
+    "posthtml-sugarml": "^1.0.0-alpha3",
     "rellax": "^1.12.1",
     "swiper": "^8.1.4"
   }

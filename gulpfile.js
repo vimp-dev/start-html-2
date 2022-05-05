@@ -11,16 +11,22 @@ const uglify = require('gulp-uglify');
 const webpack = require('webpack-stream');
 const webp = require('gulp-webp');
 var del = require('del');
+const includer = require("gulp-x-includer");
 
 //html
 const html = () => {
-    const config = (file) => ({
-        plugins: [ require('posthtml-include')({ root: file.dirname }) ],
-        options: {}
-    });
+    // const config = (file) => ({
+    //   plugins: [ require('posthtml-include')({ root: file.dirname }) ],
+    //   // options: { parser: require('posthtml-sugarml')() }
+    // })
+
+    // return gulp.src('./src/pages/**/*.html')
+    //     .pipe(posthtml(config))
+    //     .pipe(gulp.dest('dist'))
+    //     .pipe(sync.stream());
 
     return gulp.src('./src/pages/**/*.html')
-        .pipe(posthtml(config))
+        .pipe(includer())
         .pipe(gulp.dest('dist'))
         .pipe(sync.stream());
 }
