@@ -27,7 +27,7 @@
     "gulp-webp": "^4.0.1",
     "gulp-x-includer": "^0.1.2",
     "posthtml-include": "^1.7.4",
-    "sass": "^1.52.2",
+    "sass": "^1.52.3",
     "webpack": "^5.73.0",
     "webpack-stream": "^7.0.0"
   },
@@ -53,6 +53,6 @@
     "inputmask": "^5.0.7",
     "posthtml-sugarml": "^1.0.0-alpha3",
     "rellax": "^1.12.1",
-    "swiper": "^8.2.2"
+    "swiper": "^8.2.3"
   }
 }
