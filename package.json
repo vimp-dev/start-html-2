@@ -9,7 +9,7 @@
   },
   "author": "Timur Khudiyev",
   "devDependencies": {
-    "@babel/core": "^7.18.2",
+    "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "babel-loader": "^8.2.5",
     "browser-sync": "^2.27.10",
@@ -27,7 +27,7 @@
     "gulp-webp": "^4.0.1",
     "gulp-x-includer": "^0.1.2",
     "posthtml-include": "^1.7.4",
-    "sass": "^1.52.3",
+    "sass": "^1.53.0",
     "webpack": "^5.73.0",
     "webpack-stream": "^7.0.0"
   },
@@ -53,6 +53,6 @@
     "inputmask": "^5.0.7",
     "posthtml-sugarml": "^1.0.0-alpha3",
     "rellax": "^1.12.1",
-    "swiper": "^8.2.3"
+    "swiper": "^8.2.4"
   }
 }
