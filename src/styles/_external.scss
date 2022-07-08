@@ -1,1 +1,16 @@
 
+
+.badger-accordion__panel {
+  max-height: 75vh;
+  overflow: hidden;
+}
+
+.badger-accordion__panel.-ba-is-hidden {
+  max-height: 0 !important;
+  visibility: hidden;
+}
+
+.badger-accordion--initialized .badger-accordion__panel {
+  transition: all ease-in-out 0.2s;
+}
+
