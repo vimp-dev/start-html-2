@@ -46,3 +46,26 @@ $lg: 1199;
   background-position: center;
   background-repeat: no-repeat;
 }
+
+@mixin full-width {
+  width: calc(100% + var(--base-gap) * 2);
+  margin-left: calc(var(--base-gap) * -1);
+}
+
+@mixin full-width-cancel {
+  width: 100%;
+  margin-left: unset;
+}
+
+@mixin clip-btn($id) {
+  clip-path: url($id);
+  object-fit: cover;
+}
+
+@mixin hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
